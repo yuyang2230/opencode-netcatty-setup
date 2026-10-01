@@ -47,7 +47,7 @@ opencode --version
         "C:\\Program Files\\Netcatty\\resources\\app.asar.unpacked\\electron\\mcp\\netcatty-external-mcp-server.cjs"
       ],
       "environment": {
-        "NETCATTY_EXTERNAL_MCP_DISCOVERY_FILE": "C:\\Users\\adminwh\\AppData\\Roaming\\netcatty\\external-mcp\\discovery.json"
+        "NETCATTY_EXTERNAL_MCP_DISCOVERY_FILE": "%USERPROFILE%\\AppData\\Roaming\\netcatty\\external-mcp\\discovery.json"
       },
       "enabled": true
     }
