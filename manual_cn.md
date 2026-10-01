@@ -77,7 +77,7 @@ opencode/muse-spark-1.3-contributor-free
 ### 3.1 设置环境变量（让 Netcatty 直接找到 exe）
 
 ```cmd
-setx OPENCODE_BIN "C:\Users\adminwh\AppData\Roaming\npm\node_modules\opencode-ai\bin\opencode.exe"
+setx OPENCODE_BIN "%USERPROFILE%\AppData\Roaming\npm\node_modules\opencode-ai\bin\opencode.exe"
 ```
 
 然后**彻底重启 Netcatty**（GUI 应用启动时快照 PATH/环境变量）。
