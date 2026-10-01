@@ -13,7 +13,7 @@ Make Netcatty's Catty Agent work with the opencode CLI (free Zen models) on Wind
 
 ## 5000ms 超时一句话版 | The timeout fix in one paragraph
 
-`@opencode-ai/sdk` 的 `createOpencodeServer` 硬编码默认 `timeout: 5000`，Windows 上 opencode server 冷启动实测 4.6~8.9 秒，于是 Netcatty 里报 `Timeout waiting for server to start after 5000ms`（TUI 下无死线所以正常）。官方 issue：[binaricat/Netcatty#3578](https://github.com/binaricat/Netcatty/issues/3578)。等官方修复前，用脚本对 `app.asar` 做等长替换（`port: 4096,` 锚点后的 `timeout: 5000,` → `timeout: 64e3,`，恰好命中 SDK 的 2 处，不碰 gh/wsl/ssh-add/icacls 的另外 6 处）。
+`@opencode-ai/sdk` 的 `createOpencodeServer` 硬编码默认 `timeout: 5000`，Windows 上 opencode server 冷启动实测 4.6~8.9 秒，于是 Netcatty 里报 `Timeout waiting for server to start after 5000ms`（TUI 下无死线所以正常）。官方 issue：[binaricat/Netcatty#3579](https://github.com/binaricat/Netcatty/issues/3579)。等官方修复前，用脚本对 `app.asar` 做等长替换（`port: 4096,` 锚点后的 `timeout: 5000,` → `timeout: 64e3,`，恰好命中 SDK 的 2 处，不碰 gh/wsl/ssh-add/icacls 的另外 6 处）。
 
 ⚠️ Netcatty 升级会覆盖 `app.asar`，复发需重跑脚本。
 

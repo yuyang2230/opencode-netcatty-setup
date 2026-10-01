@@ -93,7 +93,7 @@ setx OPENCODE_BIN "%USERPROFILE%\AppData\Roaming\npm\node_modules\opencode-ai\bi
 **问题**：Netcatty 内嵌 opencode SDK 的 `createOpencodeServer` 硬编码 `timeout: 5000`，而 Windows 上 opencode server 启动实测 4.6~8.9 秒 → 报
 `Timeout waiting for server to start after 5000ms`（cmd 下 TUI 没有死线所以正常）。
 
-**根因（已核实，2026-10-01）**：`@opencode-ai/sdk` 的 `createOpencodeServer` 在 `dist/server.js` 和 `dist/v2/server.js` 里默认值写死 `port: 4096, timeout: 5000`；Netcatty 主聊天路径（`electron/bridges/aiBridge/sdk/opencodeDriver.cjs` 的 `runOpenCodeTurn`）调 `withOpenCodeServerPort({ config, signal })` 时没有透传 `timeout`，落到 SDK 默认 5000ms（连接池路径传了 10000ms 也偏紧）。已提交官方 issue：[binaricat/Netcatty#3578](https://github.com/binaricat/Netcatty/issues/3578)。等官方修复前用下面的补丁，或直接跑仓库里的 [`patch-netcatty-opencode-timeout.ps1`](patch-netcatty-opencode-timeout.ps1)。
+**根因（已核实，2026-10-01）**：`@opencode-ai/sdk` 的 `createOpencodeServer` 在 `dist/server.js` 和 `dist/v2/server.js` 里默认值写死 `port: 4096, timeout: 5000`；Netcatty 主聊天路径（`electron/bridges/aiBridge/sdk/opencodeDriver.cjs` 的 `runOpenCodeTurn`）调 `withOpenCodeServerPort({ config, signal })` 时没有透传 `timeout`，落到 SDK 默认 5000ms（连接池路径传了 10000ms 也偏紧）。已提交官方 issue：[binaricat/Netcatty#3579](https://github.com/binaricat/Netcatty/issues/3579)。等官方修复前用下面的补丁，或直接跑仓库里的 [`patch-netcatty-opencode-timeout.ps1`](patch-netcatty-opencode-timeout.ps1)。
 
 **修复**：等长替换 app.asar 中两处（仅限 `port: 4096,` 开头的上下文）：
 
